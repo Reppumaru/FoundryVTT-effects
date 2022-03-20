@@ -1,0 +1,15 @@
+if (args.item.id == this.item.id)
+{
+ args.item.range.bands["Point Blank"].range[0] = 0
+ args.item.range.bands["Point Blank"].range[1] = 4
+
+ if(args.item.range.bands["Normal"].range[1] == 6)
+ {
+ args.item.range.bands["Normal"].range[0] = 5
+ }
+
+ if(args.item.range.bands["Normal"].range[1] >= 11  &&  args.item.range.bands["Normal"].range[1] <= 30)
+ {
+ args.item.range.bands["Short Range"].range[0] = 5
+ }
+}

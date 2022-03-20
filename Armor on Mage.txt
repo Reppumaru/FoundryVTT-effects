@@ -1,0 +1,28 @@
+if(args.type == "cast" || args.type == "channelling")
+{
+    var table = this.actor.data.data.status.armour
+    var modifier = 0
+    
+    //loop for every location excluding shield location
+    for(var i=0 ; i < 6 ; i++)
+    {
+        var AP = table[Object.keys(table)[i]].value
+        var temp = AP
+        
+        //Checking every armor piece for its type and the used lore in spell
+        if(table[Object.keys(table)[i]].layers.length > 0)
+            for(var j=0 ; j < table[Object.keys(table)[i]].layers.length ; j++){
+                var APtype = table[Object.keys(table)[i]].layers[j].armourType
+                var APvalue = table[Object.keys(table)[i]].layers[j].value
+                
+                if(args.item.lore.value == "beasts" && APtype.includes("Leather"))
+                    temp = temp - APvalue
+                else if(args.item.lore.value == "metal" && (APtype.includes("plate") || APtype.includes("mail")))
+                    temp = temp - APvalue
+            }    
+        //Check if saved value is smaller then current found one
+        if(modifier < temp) modifier = temp    
+    }
+    //Final modifier
+    args.prefillModifiers.slBonus = -modifier
+}
